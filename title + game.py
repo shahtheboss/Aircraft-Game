@@ -120,22 +120,6 @@ def play():
                 
                 if event.type == pygame.QUIT:
                     run = False
-# green button
-            PLAY_BACK = Button(image=pygame.image.load(r"C:\Users\bigno\OneDrive\Python\SASE Hack\assets\Test Circle.png"), pos=(950, 800), 
-                                text_input="", font=get_font(75), base_color="White", hovering_color="Green")
-
-            PLAY_BACK.changeColor(PLAY_MOUSE_POS)
-            PLAY_BACK.update(SCREEN)
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                        main_menu()
-# green button
-            pygame.display.update()
 
             pygame.display.flip()
 
