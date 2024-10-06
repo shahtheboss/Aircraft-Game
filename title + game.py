@@ -10,7 +10,7 @@ pygame.init()
 SCREEN = pygame.display.set_mode((1600, 900))
 pygame.display.set_caption("Menu")
 
-BG = pygame.image.load(r"c:\Users\mlego\Desktop\Aircraft-Game-main\Background-1.png")
+BG = pygame.image.load(r"c:\Users\file_path\Aircraft-Game-main\Background-1.png")
 
 def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font(r"c:\Users\mlego\Desktop\Aircraft-Game-main\font.ttf", size)
@@ -30,7 +30,7 @@ def play():
         display_surface = pygame.display.set_mode((Width, Height))
         pygame.display.set_caption('Design Your Plane!')
 
-        back = pygame.image.load(r"c:\Users\mlego\Desktop\Aircraft-Game-main\design_board.png")
+        back = pygame.image.load(r"c:\Users\file_path\Aircraft-Game-main\design_board.png")
         back = pygame.transform.scale(back, (Width, Height))
 
         g_size = 25
@@ -173,9 +173,9 @@ def main_menu():
         MENU_TEXT = get_font(100).render("MAIN MENU", True, "#b68f40")
         MENU_RECT = MENU_TEXT.get_rect(center=(800, 240))
 
-        PLAY_BUTTON = Button(image=pygame.image.load(r"c:\Users\mlego\Desktop\Aircraft-Game-main\Play Rect.png"), pos=(800, 490), 
+        PLAY_BUTTON = Button(image=pygame.image.load(r"c:\Users\file_path\Aircraft-Game-main\Play Rect.png"), pos=(800, 490), 
                             text_input="PLAY", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-        QUIT_BUTTON = Button(image=pygame.image.load(r"c:\Users\mlego\Desktop\Aircraft-Game-main\Quit Rect.png"), pos=(800, 690), 
+        QUIT_BUTTON = Button(image=pygame.image.load(r"c:\Users\file_path\Aircraft-Game-main\Quit Rect.png"), pos=(800, 690), 
                             text_input="QUIT", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
