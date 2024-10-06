@@ -11,7 +11,7 @@ bh = 100
 display_surface = pygame.display.set_mode((Width, Height))
 pygame.display.set_caption('Design Your Plane!')
 
-back = pygame.image.load("c:/Users/mlego/Desktop/THE GAME YEAHHHHHHH/design_board.png")
+back = pygame.image.load("design_board.png filepath goes here")
 back = pygame.transform.scale(back, (Width, Height))
 
 g_size = 25
