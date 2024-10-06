@@ -1,0 +1,9 @@
+READ ME!
+
+This program uses python
+
+Prior to running the program, ensure pygame is installed
+
+To install pygame, run "pip3 install pygame" or "pip install pygame"
+
+Replace "design_board.png filepath goes here" with the appropriate filepath of the image
