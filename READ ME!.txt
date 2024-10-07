@@ -2,8 +2,10 @@ READ ME!
 
 This program uses python
 
-Prior to running the program, ensure pygame is installed
+Prior to running the program, ensure pygame and tkinter are installed
 
 To install pygame, run "pip3 install pygame" or "pip install pygame"
 
-Replace "design_board.png filepath goes here" with the appropriate filepath of the image
+Replace '"Enter Path Here"' with the appropriate filepath of the image
+
+DO NOT change the file names. 
