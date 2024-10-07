@@ -5,6 +5,8 @@ This program uses python
 Prior to running the program, ensure pygame and tkinter are installed
 
 To install pygame, run "pip3 install pygame" or "pip install pygame"
+---------------------------------------------------------------------
+To install tkinter, run "pip install tk"
 
 Replace '"Enter Path Here"' with the appropriate filepath of the image
 
