@@ -10,10 +10,10 @@ pygame.init()
 SCREEN = pygame.display.set_mode((1600, 900)) # Defines screen size (DO NOT ADJUST)
 pygame.display.set_caption("Menu") 
 
-BG = pygame.image.load(r"c:\Users\mlego\Desktop\Aircraft-Game-main\Background-1.png")
+BG = pygame.image.load(r"File Path For Background-1.png")
 
 def get_font(size):  # Returns Press-Start-2P in the desired size
-    return pygame.font.Font(r"c:\Users\mlego\Desktop\Aircraft-Game-main\font.ttf", size)
+    return pygame.font.Font(r"File Path For font.ttf", size)
 
 def play():
     Width = 1600 #sets the design space to width of 1600
@@ -24,7 +24,7 @@ def play():
     display_surface = pygame.display.set_mode((Width, Height))
     pygame.display.set_caption('Design Your Plane!')
 
-    back = pygame.image.load(r"c:\Users\mlego\Desktop\Aircraft-Game-main\design_board.png")
+    back = pygame.image.load(r"File Path For design_board.png")
     back = pygame.transform.scale(back, (Width, Height))
 
     g_size = 25 # this defines the grid size
@@ -33,14 +33,14 @@ def play():
 
     # Load images for the boxes (replace these paths with your image files)
     image_paths = [
-        r"c:\Users\mlego\Desktop\Aircraft-Game-main\part1.png",
-        r"c:\Users\mlego\Desktop\Aircraft-Game-main\part2.png",
-        r"c:\Users\mlego\Desktop\Aircraft-Game-main\part-3.png",
-        r"c:\Users\mlego\Desktop\Aircraft-Game-main\part4.png",
-        r"c:\Users\mlego\Desktop\Aircraft-Game-main\part-5.png",
-        r"c:\Users\mlego\Desktop\Aircraft-Game-main\part6.png",
-        r"c:\Users\mlego\Desktop\Aircraft-Game-main\part7.png",
-        r"c:\Users\mlego\Desktop\Aircraft-Game-main\part8.png"
+        r"File Path For part1.png",
+        r"File Path For part2.png",
+        r"File Path For part-3.png",
+        r"File Path For part4.png",
+        r"File Path For part-5.png",
+        r"File Path For part6.png",
+        r"File Path For part7.png",
+        r"File Path For part8.png"
     ]
     images = [pygame.image.load(path) for path in image_paths]
     resized_images = [pygame.transform.scale(image, (bw, bh)) for image in images]  # Resize images to fit the box size
@@ -185,9 +185,9 @@ def main_menu():
         MENU_TEXT = get_font(100).render("MAIN MENU", True, "#b68f40")
         MENU_RECT = MENU_TEXT.get_rect(center=(800, 170))
 
-        PLAY_BUTTON = Button(image=pygame.image.load(r"c:\Users\mlego\Desktop\Aircraft-Game-main\Play Rect.png"), pos=(800, 350),
+        PLAY_BUTTON = Button(image=pygame.image.load(r"File Path For Play Rect.png"), pos=(800, 350),
                             text_input="PLAY", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-        QUIT_BUTTON = Button(image=pygame.image.load(r"c:\Users\mlego\Desktop\Aircraft-Game-main\Quit Rect.png"), pos=(800, 690),
+        QUIT_BUTTON = Button(image=pygame.image.load(r"File Path For Quit Rect.png"), pos=(800, 690),
                             text_input="QUIT", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
