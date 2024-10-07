@@ -9,10 +9,10 @@ pygame.init()
 
 SCREEN = pygame.display.set_mode((1600, 900))
 
-BG = pygame.image.load(r"C:\Users\bigno\OneDrive\Python\SASE Hack\assets\Background-1.png") # INSERT FILE HERE
+BG = pygame.image.load(r"File Path For Background-1.png") # INSERT FILE HERE
 
 def get_font(size): # Returns Press-Start-2P in the desired size
-    return pygame.font.Font(r"C:\Users\bigno\OneDrive\Python\SASE Hack\assets\font.ttf", size) # INSERT FILE HERE
+    return pygame.font.Font(r"File Path For font.ttf", size) # INSERT FILE HERE
 
 def play():
     Width = 1600 # sets the design space to width of 1600
@@ -28,14 +28,14 @@ def play():
 
     # Load images for the boxes (replace these paths with your image files)
     image_paths = [
-        r"C:\Users\bigno\OneDrive\Python\SASE Hack\part1.png",
-        r"C:\Users\bigno\OneDrive\Python\SASE Hack\part2.png",
-        r"C:\Users\bigno\OneDrive\Python\SASE Hack\part-3.png",
-        r"C:\Users\bigno\OneDrive\Python\SASE Hack\part4.png",
-        r"C:\Users\bigno\OneDrive\Python\SASE Hack\part-5.png",
-        r"C:\Users\bigno\OneDrive\Python\SASE Hack\part6.png",
-        r"C:\Users\bigno\OneDrive\Python\SASE Hack\part7.png",
-        r"C:\Users\bigno\OneDrive\Python\SASE Hack\part8.png"]
+        r"File Path For part1.png",
+        r"File Path For part2.png",
+        r"File Path For part-3.png",
+        r"File Path For part4.png",
+        r"File Path For part-5.png",
+        r"File Path For part6.png",
+        r"File Path For part7.png",
+        r"File Path For part8.png"]
     
     images = [pygame.image.load(path) for path in image_paths]
     resized_images = [pygame.transform.scale(image, (bw, bh)) for image in images]  # Resize images to fit the box size
@@ -186,9 +186,9 @@ def main_menu():
         MENU_TEXT = get_font(100).render("MAIN MENU", True, "#b56e18")
         MENU_RECT = MENU_TEXT.get_rect(center=(800, 170))
 
-        PLAY_BUTTON = Button(image=pygame.image.load(r"C:\Users\bigno\OneDrive\Python\SASE Hack\assets\Play Rect.png"), pos=(800, 350), # INSERT FILE HERE
+        PLAY_BUTTON = Button(image=pygame.image.load(r"File Path For Play Rect.png"), pos=(800, 350), # INSERT FILE HERE
                             text_input="PLAY", font=get_font(75), base_color="White", hovering_color="White")
-        QUIT_BUTTON = Button(image=pygame.image.load(r"C:\Users\bigno\OneDrive\Python\SASE Hack\assets\Quit Rect.png"), pos=(800, 690), # INSERT FILE HERE
+        QUIT_BUTTON = Button(image=pygame.image.load(r"File Path For Quit Rect.png"), pos=(800, 690), # INSERT FILE HERE
                             text_input="QUIT", font=get_font(75), base_color="White", hovering_color="White")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
