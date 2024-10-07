@@ -176,11 +176,12 @@ def play():
 
         pygame.display.flip()
 
+# This sets up the main menu and all the functions in the main menu
 def main_menu():
     while True:
         SCREEN.blit(BG, (0, 0))
 
-        MENU_MOUSE_POS = pygame.mouse.get_pos()
+        MENU_MOUSE_POS = pygame.mouse.get_pos() #Actively get the position of the mouse so that the clicks register
 
         MENU_TEXT = get_font(100).render("MAIN MENU", True, "#b68f40")
         MENU_RECT = MENU_TEXT.get_rect(center=(800, 170))
