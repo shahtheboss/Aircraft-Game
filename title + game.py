@@ -1,168 +1,180 @@
 import pygame, sys
 import math
+import random
 import tkinter as tk
 from tkinter import messagebox
 from button import Button
 
-
 pygame.init()
 
-SCREEN = pygame.display.set_mode((1600, 900))
-pygame.display.set_caption("Menu")
+SCREEN = pygame.display.set_mode((1600, 900)) # Defines screen size (DO NOT ADJUST)
+pygame.display.set_caption("Menu") 
 
-BG = pygame.image.load(r"c:\Users\file_path\Aircraft-Game-main\Background-1.png")
+BG = pygame.image.load(r"c:\Users\mlego\Desktop\Aircraft-Game-main\Background-1.png")
 
-def get_font(size): # Returns Press-Start-2P in the desired size
+def get_font(size):  # Returns Press-Start-2P in the desired size
     return pygame.font.Font(r"c:\Users\mlego\Desktop\Aircraft-Game-main\font.ttf", size)
 
 def play():
-    while True:
+    Width = 1600 #sets the design space to width of 1600
+    Height = 900 #sets the design space to height of 900
+    bw = 100 # size of each box
+    bh = 100
 
-        PLAY_MOUSE_POS = pygame.mouse.get_pos()  
+    display_surface = pygame.display.set_mode((Width, Height))
+    pygame.display.set_caption('Design Your Plane!')
 
-        SCREEN.fill("black")
-    
-        Width = 1600
-        Height = 900
-        bw = 100
-        bh = 100
+    back = pygame.image.load(r"c:\Users\mlego\Desktop\Aircraft-Game-main\design_board.png")
+    back = pygame.transform.scale(back, (Width, Height))
 
-        display_surface = pygame.display.set_mode((Width, Height))
-        pygame.display.set_caption('Design Your Plane!')
+    g_size = 25 # this defines the grid size
+    snap_dist = 25 # how close the block is to the edge of grid before "snapping"
+    active_box = None
 
-        back = pygame.image.load(r"c:\Users\file_path\Aircraft-Game-main\design_board.png")
-        back = pygame.transform.scale(back, (Width, Height))
+    # Load images for the boxes (replace these paths with your image files)
+    image_paths = [
+        r"c:\Users\mlego\Desktop\Aircraft-Game-main\part1.png",
+        r"c:\Users\mlego\Desktop\Aircraft-Game-main\part2.png",
+        r"c:\Users\mlego\Desktop\Aircraft-Game-main\part-3.png",
+        r"c:\Users\mlego\Desktop\Aircraft-Game-main\part4.png",
+        r"c:\Users\mlego\Desktop\Aircraft-Game-main\part-5.png",
+        r"c:\Users\mlego\Desktop\Aircraft-Game-main\part6.png",
+        r"c:\Users\mlego\Desktop\Aircraft-Game-main\part7.png",
+        r"c:\Users\mlego\Desktop\Aircraft-Game-main\part8.png"
+    ]
+    images = [pygame.image.load(path) for path in image_paths]
+    resized_images = [pygame.transform.scale(image, (bw, bh)) for image in images]  # Resize images to fit the box size
 
-        g_size = 25
-        snap_dist = 25
-        active_box = None
+    boxes = []
+    starting_x_left = 75
+    starting_x_right = Width - 75 - bw
+    starting_y = 200
+    vertical_spacing = 25
 
-        colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'cyan', 'magenta']
+    # Left-hand side inventory
+    for i in range(4):  # This will make 4 boxes with spacing of 25
+        x = starting_x_left
+        y = starting_y + (bh + vertical_spacing) * i
+        box = pygame.Rect(x, y, bw, bh)
+        boxes.append(box)
 
-        boxes = []
-        starting_x_left = 75
-        starting_x_right = Width - 75 - bw
-        starting_y = 200
-        vertical_spacing = 25
+    # Right-hand side inventory
+    for i in range(4):
+        x = starting_x_right
+        y = starting_y + (bh + vertical_spacing) * i
+        box = pygame.Rect(x, y, bw, bh)
+        boxes.append(box)
 
-        # Left hand side inventory
-        for i in range(4): #This will make 4 squares with the spacing of 25
-            x = starting_x_left
-            y = starting_y + (bh + vertical_spacing) * i #This takes the box
-            box = pygame.Rect(x, y, bw, bh)
-            boxes.append(box)
+    original_positions = [box.topleft for box in boxes]
 
-        # Right hand side inventory. 
-        for i in range(4):
-            x = starting_x_right
-            y = starting_y + (bh + vertical_spacing) * i
-            box = pygame.Rect(x, y, bw, bh)
-            boxes.append(box)
+    def collision(moving_box, all_boxes):
+        for box in all_boxes:
+            if box != moving_box and box.colliderect(moving_box):
+                return True
+        return False
 
-        original_positions = [box.topleft for box in boxes]
+    def grid(box):
+        snap_x = round(box.x / g_size) * g_size
+        snap_y = round(box.y / g_size) * g_size
+        if abs(box.x - snap_x) <= snap_dist:
+            box.x = snap_x
+        if abs(box.y - snap_y) <= snap_dist:
+            box.y = snap_y
 
-        def collision(moving_box, all_boxes):
-            for box in all_boxes:
-                if box != moving_box and box.colliderect(moving_box):
-                    return True
-            return False
+    def reset_boxes():
+        for i, box in enumerate(boxes):
+            box.topleft = original_positions[i]
 
-        def grid(box):
-            snap_x = round(box.x / g_size) * g_size
-            snap_y = round(box.y / g_size) * g_size
-            if abs(box.x - snap_x) <= snap_dist:
-                box.x = snap_x
-            if abs(box.y - snap_y) <= snap_dist:
-                box.y = snap_y
-
-        def reset_boxes():
-            for i, box in enumerate(boxes):
-                box.topleft = original_positions[i]
-
-        def show_popup():
+    def show_popup():
+        # 50-50 chance of success or failure
+        if random.choice([True, False]):  # True = success, False = failure
+            # Success popup
             root = tk.Tk()
             root.withdraw()
-            messagebox.showinfo("Popup", "1001")
+            messagebox.showinfo("Flight Status", "Congrats, your aircraft flies!")
+            root.destroy()
+        else:
+            # Failure popup
+            root = tk.Tk()
+            root.withdraw()
+            messagebox.showwarning("Flight Status", "Oops, the aircraft did not fly. Try again!")
             root.destroy()
 
-        # Define the green button
-        button_radius = 35  # Radius of the circle
-        button_x, button_y = (19*50), (16*50)  # Position of the center of the circle
+    # Define the green button
+    button_radius = 35  # Radius of the circle
+    button_x, button_y = (19 * 50), (16 * 50)  # Position of the center of the circle
 
-        def is_point_in_circle(point, circle_center, radius):
-            # Check if a point (mouse click) is inside the circle using distance formula
-            return math.sqrt((point[0] - circle_center[0])**2 + (point[1] - circle_center[1])**2) <= radius
+    def is_point_in_circle(point, circle_center, radius):
+        # Check if a point (mouse click) is inside the circle using the distance formula
+        return math.sqrt((point[0] - circle_center[0]) ** 2 + (point[1] - circle_center[1]) ** 2) <= radius
 
-        run = True
-        while run:
-            display_surface.blit(back, (0, 0))
+    run = True
+    while run:
+        display_surface.blit(back, (0, 0))
 
-            for i, box in enumerate(boxes):
-                pygame.draw.rect(display_surface, colors[i], box)  # Draw each box with its color
+        # Display each image in its corresponding box
+        for i, box in enumerate(boxes):
+            display_surface.blit(resized_images[i], box)  # Draw the image inside the box
 
-            # Draw reset button
-            reset_button = pygame.Rect(Width - 150, 20, 130, 50)  # Define button position and size
-            pygame.draw.rect(display_surface, 'gray', reset_button)  # Draw the button
-            font = pygame.font.Font(None, 36)
-            text_surface = font.render('Reset', True, 'white')
-            text_rect = text_surface.get_rect(center=reset_button.center)
-            display_surface.blit(text_surface, text_rect)  # Draw the text
-            
-            # Draw back button
-            back_button = pygame.Rect(Width - 1580, 20, 130, 50)  # Define button position and size
-            pygame.draw.rect(display_surface, 'red', back_button)  # Draw the button
-            font = pygame.font.Font(None, 36)
-            text_surface = font.render('Back', True, 'white')
-            text_rect = text_surface.get_rect(center=back_button.center)
-            display_surface.blit(text_surface, text_rect)  # Draw the text
-            
-            # Draw the green circular button
-            pygame.draw.circle(display_surface, 'green', (button_x, button_y), button_radius)  # Draw the green button
-            button_font = pygame.font.Font(None, 36)
-            button_text = button_font.render('Click', True, 'white')
-            button_text_rect = button_text.get_rect(center=(button_x, button_y))
-            display_surface.blit(button_text, button_text_rect)  # Draw text in the circle
+        # Draw reset button
+        reset_button = pygame.Rect(Width - 150, 20, 130, 50)  # Define button position and size
+        pygame.draw.rect(display_surface, 'gray', reset_button)  # Draw the button
+        font = pygame.font.Font(None, 36)
+        text_surface = font.render('Reset', True, 'white')
+        text_rect = text_surface.get_rect(center=reset_button.center)
+        display_surface.blit(text_surface, text_rect)  # Draw the text
 
-            # Handle events
-            for event in pygame.event.get():
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 1:  # Left-click
-                        # Check if reset button is clicked
-                        if reset_button.collidepoint(event.pos):
-                            reset_boxes()
-                        # Check if back button is clicked
-                        elif back_button.collidepoint(event.pos):
-                            main_menu()
-                        # Check if the green circular button is clicked
-                        elif is_point_in_circle(event.pos, (button_x, button_y), button_radius):
-                            show_popup()  # Show the popup when the green button is clicked
-                        else:
-                            for num, box in enumerate(boxes):
-                                if box.collidepoint(event.pos):
-                                    active_box = num
+        # Draw back button
+        back_button = pygame.Rect(Width - 1580, 20, 130, 50)  # Define button position and size
+        pygame.draw.rect(display_surface, 'red', back_button)  # Draw the button
+        font = pygame.font.Font(None, 36)
+        text_surface = font.render('Back', True, 'white')
+        text_rect = text_surface.get_rect(center=back_button.center)
+        display_surface.blit(text_surface, text_rect)  # Draw the text
 
-                if event.type == pygame.MOUSEBUTTONUP:
-                    if event.button == 1 and active_box is not None:
-                        grid(boxes[active_box])
-                        active_box = None
+        # Draw the green circular button
+        pygame.draw.circle(display_surface, 'green', (button_x, button_y), button_radius)  # Draw the green button
+        button_font = pygame.font.Font(None, 36)
+        button_text = button_font.render('Click', True, 'white')
+        button_text_rect = button_text.get_rect(center=(button_x, button_y))
+        display_surface.blit(button_text, button_text_rect)  # Draw text in the circle
 
-                if event.type == pygame.MOUSEMOTION:
-                    if active_box is not None:
-                        original_position = boxes[active_box].topleft
-                        boxes[active_box].move_ip(event.rel)
+        # Handle events
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:  # Left-click
+                    # Check if reset button is clicked
+                    if reset_button.collidepoint(event.pos):
+                        reset_boxes()
+                    # Check if back button is clicked
+                    elif back_button.collidepoint(event.pos):
+                        return  # Go back to the main menu
+                    # Check if the green circular button is clicked
+                    elif is_point_in_circle(event.pos, (button_x, button_y), button_radius):
+                        show_popup()  # Show the popup when the green button is clicked
+                    else:
+                        for num, box in enumerate(boxes):
+                            if box.collidepoint(event.pos):
+                                active_box = num
 
-                        if collision(boxes[active_box], boxes):
-                            boxes[active_box].topleft = original_position
+            if event.type == pygame.MOUSEBUTTONUP:
+                if event.button == 1 and active_box is not None:
+                    grid(boxes[active_box])
+                    active_box = None
 
-                if event.type == pygame.QUIT:
-                    run = False
+            if event.type == pygame.MOUSEMOTION:
+                if active_box is not None:
+                    original_position = boxes[active_box].topleft
+                    boxes[active_box].move_ip(event.rel)
 
-            pygame.display.flip()
+                    if collision(boxes[active_box], boxes):
+                        boxes[active_box].topleft = original_position
 
-        pygame.quit()
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
 
-#def test():
-#    while True:
+        pygame.display.flip()
 
 def main_menu():
     while True:
@@ -171,11 +183,11 @@ def main_menu():
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
         MENU_TEXT = get_font(100).render("MAIN MENU", True, "#b68f40")
-        MENU_RECT = MENU_TEXT.get_rect(center=(800, 240))
+        MENU_RECT = MENU_TEXT.get_rect(center=(800, 170))
 
-        PLAY_BUTTON = Button(image=pygame.image.load(r"c:\Users\file_path\Aircraft-Game-main\Play Rect.png"), pos=(800, 490), 
+        PLAY_BUTTON = Button(image=pygame.image.load(r"c:\Users\mlego\Desktop\Aircraft-Game-main\Play Rect.png"), pos=(800, 350),
                             text_input="PLAY", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-        QUIT_BUTTON = Button(image=pygame.image.load(r"c:\Users\file_path\Aircraft-Game-main\Quit Rect.png"), pos=(800, 690), 
+        QUIT_BUTTON = Button(image=pygame.image.load(r"c:\Users\mlego\Desktop\Aircraft-Game-main\Quit Rect.png"), pos=(800, 690),
                             text_input="QUIT", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
@@ -183,7 +195,7 @@ def main_menu():
         for button in [PLAY_BUTTON, QUIT_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(SCREEN)
-        
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
