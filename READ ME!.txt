@@ -1,13 +1,19 @@
 READ ME!
 
 This program uses python
-
+---------------------------------------------------------------------
 Prior to running the program, ensure pygame and tkinter are installed
-
+---------------------------------------------------------------------
 To install pygame, run "pip3 install pygame" or "pip install pygame"
 ---------------------------------------------------------------------
 To install tkinter, run "pip install tk"
-
-Replace '"Enter Path Here"' with the appropriate filepath of the image
-
+---------------------------------------------------------------------
+The main file is named "Aircraft Assembly.py --> Open this file
+---------------------------------------------------------------------
+Replace "File Path For [Filename]" with the appropriate filepath of the image
+---------------------------------------------------------------------
+Ensure all the files are under one folder to reduce complications when adding the file paths
+---------------------------------------------------------------------
+When running on mac, remove the 'r' at the front of the filepath
+---------------------------------------------------------------------
 DO NOT change the file names. 
