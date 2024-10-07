@@ -9,7 +9,7 @@ pygame.init()
 
 SCREEN = pygame.display.set_mode((1600, 900))
 
-BG = pygame.image.load(r"C:\Users\bigno\OneDrive\Python\SASE Hack\assets\Background-2.png") # INSERT FILE HERE
+BG = pygame.image.load(r"C:\Users\bigno\OneDrive\Python\SASE Hack\assets\Background-1.png") # INSERT FILE HERE
 
 def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font(r"C:\Users\bigno\OneDrive\Python\SASE Hack\assets\font.ttf", size) # INSERT FILE HERE
