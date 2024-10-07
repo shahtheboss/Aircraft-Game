@@ -23,7 +23,7 @@ def play():
     display_surface = pygame.display.set_mode((Width, Height))
     pygame.display.set_caption('Design Your Plane!')
 
-    back = pygame.image.load(r"C:\Users\bigno\OneDrive\Python\SASE Hack\design_board.png") # INSERT FILE HERE
+    back = pygame.image.load(r"File Path For design_board.png") # INSERT FILE HERE
     back = pygame.transform.scale(back, (Width, Height))
 
     # Load images for the boxes (replace these paths with your image files)
